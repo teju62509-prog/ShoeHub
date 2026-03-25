@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShoeHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Body & Background */
+        body {
+            font-family: Arial, sans-serif;
+            padding-top: 20px;
+            color: #333;
+            background: linear-gradient(135deg, #FFDAB9, #FFEFD5, #F5F5F5);
+            background-size: 400% 400%;
+            animation: shimmer 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navbar */
+        .navbar-brand img { height: 80px; width: auto; }
+        .navbar-text { font-size: 36px; font-weight: bold; margin-left: 10px; }
+
+        /* Category Buttons */
+        .category-btns .btn { margin: 5px; font-weight: bold; }
+         /* Shoe Cards with warm shadow */
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+         /* Warm shadow behind cards */
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.25), 0 12px 30px rgba(255, 140, 0, 0.2);
+        }
+        .card:hover {
+            transform: scale(1.05);
+         /* Stronger warm shadow on hover */
+            box-shadow: 0 12px 30px rgba(255, 165, 0, 0.35), 0 18px 40px rgba(255, 140, 0, 0.3);
+        }
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+         /* Buy Now Button with warm glow */
+        .btn-glow {
+            background-color: #00ffcc;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+         /* Warm glow effect */
+            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4), 0 6px 25px rgba(255, 140, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.5), 0 12px 35px rgba(255, 140, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        /* Section Titles */
+        h2.section-title { text-align: center; margin-bottom: 20px; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/shoe logo.jpg' %}" alt="ShoeHub Logo">
+        </a>
+        <span class="navbar-text">SHOE HUB</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="/help/">Help Desk</a></li>
+            </ul>
+            <form class="d-flex ms-lg-3 mt-2 mt-lg-0" method="GET">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search shoes...">
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- Category Buttons -->
+<div class="container category-btns text-center mt-4">
+    <a href="/" class="btn btn-outline-dark">All</a>
+    <a href="?category=Men" class="btn btn-outline-primary">Men</a>
+    <a href="?category=Women" class="btn btn-outline-danger">Women</a>
+    <a href="?category=Kids" class="btn btn-outline-success">Kids</a>
+    <a href="?category=Sports" class="btn btn-outline-warning">Sports</a>
+    <a href="?category=Casual" class="btn btn-outline-info">Casual</a>
+    <a href="?category=Formal" class="btn btn-outline-secondary">Formal</a>
+    <a href="?category=Boots" class="btn btn-outline-dark">Boots</a>
+</div>
+
+<!-- Shoe Cards -->
+<div class="container mt-4">
+    <h2 class="section-title">Available Shoes</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for shoe in shoes %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ shoe.image.url }}" class="card-img-top" alt="{{ shoe.name }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ shoe.name }}</h5>
+                    <p class="card-text">₹{{ shoe.price }}</p>
+                    <a href="{% url 'shoe_detail' shoe.id %}" class="btn btn-glow">Buy Now</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No shoes available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

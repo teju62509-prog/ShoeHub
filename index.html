@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to ShoeHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #FFDAB9, #FFEFD5, #F5F5F5);
+            background-size: 400% 400%;
+            animation: shimmer 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .landing-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(255,165,0,0.3), 0 12px 35px rgba(255,140,0,0.25);
+        }
+
+        .btn-glow {
+            background-color: #00ffcc;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(255,165,0,0.4), 0 6px 25px rgba(255,140,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 8px 25px rgba(255,165,0,0.5), 0 12px 35px rgba(255,140,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="landing-card">
+    <h1>Welcome to ShoeHub</h1>
+    <p>Discover the ultimate online destination for all your footwear needs.
+From trendy casual sneakers to elegant formal shoes, sporty kicks to comfy kids’ shoes — we have it all.
+Browse, shop, and find the perfect pair for every occasion.
+With easy navigation, secure shopping, and the latest styles, ShoeHub makes buying shoes fun and effortless.</p>
+    <a href="{% url 'home' %}" class="btn-glow">Get Started</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
